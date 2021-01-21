@@ -1,0 +1,35 @@
+{% extends 'blog_app/base.html' %}
+
+{% block content %}
+
+<div class="mt-4 text-center alert alert-danger">You are about to remove you post from the blog, confirm it below</div>
+
+
+<div class="mt-2 mb-4 border border-light"></div>
+
+<div class="top d-flex justify-content-between align-items-baseline mx-2">
+    <small class=" p-0 d-inline text-muted ">Post</small>
+    <small class=" p-0 d-inline text-muted ">Author</small>
+   
+</div>
+
+<div class="top d-flex justify-content-between align-items-baseline mx-2 my-1">
+    <h2 class="h5 p-0 d-inline text-muted ">{{ title }}</h2>
+    
+    <h2 class="h5 p-0 d-inline text-muted ">{{ author }}</h2>
+
+</div>
+
+<div class="post-container rounded  shadow m-2 p-4 alert alert-danger border-danger ">
+    <h2 class="">Are you sure you want to delete this post?</h2>
+
+    <form action="" method="POST" class="">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger shadow-sm" ><i class="fas fa-check mr-1"></i>Yes</button>
+        <button onClick="window.history.back();return false;" class="btn btn-outline-secondary shadow-sm"><i class="fas fa-times mr-1"></i>Cancel</button>
+    </form>
+    
+</div>
+
+
+{% endblock %}

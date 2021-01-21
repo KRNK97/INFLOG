@@ -1,0 +1,25 @@
+{% extends 'blog_app/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1 class="h6 mt-4 text-muted text-center"><i class="fas fa-pen"></i> UPDATE POST</h1>
+
+<div class="mt-2 mb-4 border border-light"></div>
+
+<div class="form-container bg-light rouned shadow-sm">
+<form action="" method="POST">
+
+    {% csrf_token %}
+    
+    <div class="form-group">
+        {{ form| crispy }}
+    </div>
+
+    <button type="submit" class="btn btn-outline-success btn-block">Update</button>
+    
+    <button onClick="window.history.back();return false;" class="btn btn-block btn-outline-secondary ">Cancel</button>
+
+</form>
+
+
+{% endblock %}

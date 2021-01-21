@@ -1,0 +1,61 @@
+{% extends 'blog_app/base.html' %}
+{% block content %}
+
+
+<div class="mt-2 mb-4 border border-light"></div>
+
+<h1 class="h6 mt-4 text-muted text-center">Viewing posts by <span class="green">{{ author}}</span></h1>
+
+{% for post in posts %}
+
+<div class="post-container rounded border shadow-sm m-2 p-4 ">
+
+    <div class="top-section">
+        <div class="mr-2 rounded-circle shadow-sm">
+            <img class="rounded-circle dp " src="{{ post.author.profile.image.url }}" alt="">
+        </div>
+
+        <h2 class="d-inline m-0 p-0"><a href="/post/{{ post.id }}" class="text-decoration-none text-success">{{ post.title|upper }}</a></h2>
+
+    </div>
+
+    <div class="mt-2 mb-2 border border-light"></div>
+    
+    <h3 class="h6 text-muted">By <span class="text-success">{{ post.author }}</a></span> on <span class="text-muted ">{{ post.date | date:"j F, Y" }}</span></h3>
+
+    <div class="mt-2 mb-2 border border"></div>
+    
+    <p class="mt-2 h6 text-secondary">{{ post.content | truncatewords:25 }}<a href="/post/{{ post.id }}" class="text-decoration-none text-success ml-2 weighted">continue reading</a></p>
+</div>
+
+{% endfor %}
+
+<ul class="pagination m-2 ">
+    {% if posts.has_previous %}
+    <li class="page-item text-success">
+        <a href="?page={{ posts.previous_page_number }}" class="text-reset text-decoration-none page-link">&laquo;</a>
+    </li>
+    {% endif %}
+
+    {% for p in posts.paginator.page_range %}
+        {% if posts.number == p %}
+            <li class="page-item bg-success text-light">
+                <a href="?page={{ p }}" class="text-reset text-decoration-none page-link bg-success">{{p}}</a>
+            </li>
+        {% else %}
+        <li class="page-item text-success">
+            <a href="?page={{ p }}" class="text-reset text-decoration-none page-link">{{p}}</a>
+        </li>
+        {% endif %}
+    {% endfor %}
+
+    {% if posts.has_next %}
+    <li class="page-item text-success">
+        <a href="?page={{ posts.next_page_number }}" class="text-reset text-decoration-none page-link">&raquo;</a>
+    </li>
+    {% endif %}
+</ul>
+
+
+
+{% endblock %}

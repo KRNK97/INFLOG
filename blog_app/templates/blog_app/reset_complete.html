@@ -1,0 +1,19 @@
+{% extends 'blog_app/base.html' %}
+
+{% block content %}
+
+<h1 class="h6 mt-4 text-muted text-center">Reset Done</h1>
+<div class="mt-2 mb-4 border border-light"></div>
+
+<div class="alert alert-info">
+    Your password has been set, logout & login again with your new password if you are still logged in
+</div>
+
+
+<a href="{% url 'login' %}" class="text-decoration-none text-success display-4">Login</a> 
+
+    
+
+
+
+{% endblock %}

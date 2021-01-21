@@ -1,0 +1,109 @@
+{% extends 'blog_app/base.html' %}
+
+
+
+    
+{% block content %}
+
+<div class="row">
+<div class="col-12 col-lg-8 col-md-8">
+<div class="home-icon mt-4 text-secondary text-center"><i class="fas fa-home"></i> HOME</div>
+
+<!-- <h1 class="h6 mt-1 text-muted text-center">HOME</h1> -->
+
+<div class="mt-2 mb-4 border border-light"></div>
+
+
+{% if user.is_authenticated %}
+            <div class="greetings m-2">
+                <small class="text-muted">welcome back, <span class="text-success weighted">{{ user.username }}</span></small>
+            </div>
+{% endif %}
+
+
+{% if posts %}
+{% for post in posts %}
+
+<div class="post-container rounded border shadow-sm m-2 p-4 bg-light">
+
+    <div class="top-section">
+        <div class="mr-2 shadow-sm rounded-circle  ">
+            <img class="rounded-circle dp" src="{{ post.author.profile.image.url }}" alt="">
+        </div>
+
+        <h2 class="d-inline m-0 p-0"><a href="post/{{ post.id }}" class="text-decoration-none text-success">{{ post.title |upper }}</a></h2>
+
+    </div>
+    
+    <h3 class="h6 text-muted mt-2">By 
+        <a href="{% url 'posts_by_user' post.author.id %}" class="text-reset text-decoration-none"><span class="text-success">{{ post.author }}</span></a> 
+        on <span class="text-muted ">{{ post.date | date:"j F, Y" }}</span></h3>
+
+        <div class="mt-2 mb-2 border border"></div>
+
+    <p class="mt-2 h6 text-secondary">{{ post.content | truncatewords:25 }}<a href="post/{{ post.id }}" class="text-decoration-none text-success ml-2 weighted">continue reading</a></p>
+</div>
+
+{% endfor %}
+{% else %}
+
+    <p class="display-4">It is quite empty here . . .</p><span class="text-success">
+    <p class="h4 text-success"><a href="{% url 'new' %}" class="text-decoration-none text-success">Start by writing a post  <i class="fas fa-pen"></i></a></p>
+
+{% endif %}
+
+
+<ul class="pagination m-2 ">
+    {% if posts.has_previous %}
+    <li class="page-item text-success">
+        <a href="?page={{ posts.previous_page_number }}" class="text-reset text-decoration-none page-link">&laquo;</a>
+    </li>
+    {% endif %}
+    {% for p in posts.paginator.page_range %}
+        {% if posts.number == p %}
+            <li class="page-item bg-success text-light">
+                <a href="?page={{ p }}" class="text-reset text-decoration-none page-link bg-success">{{p}}</a>
+            </li>
+        {% else %}
+        <li class="page-item text-success">
+            <a href="?page={{ p }}" class="text-reset text-decoration-none page-link">{{p}}</a>
+        </li>
+        {% endif %}
+    {% endfor %}
+
+    {% if posts.has_next %}
+    <li class="page-item text-success">
+        <a href="?page={{ posts.next_page_number }}" class="text-reset text-decoration-none page-link">&raquo;</a>
+    </li>
+    {% endif %}
+</ul>
+</div>
+
+<div class="col col-lg-4 ">
+    <div class="home-icon mt-4 text-secondary text-center"><i class="fas fa-clipboard mr-1 transparent-logo"></i></div>
+    
+    <div class="mt-2 mb-4 border border-light"></div>
+
+        <div class="greetings m-2">
+            <small class="text-muted ">blog updates will go here </small>
+        </div>
+
+        <ul class="list-group rounded border border-success shadow-sm m-2 bg-light">
+            <li class="list-group-item bg-light p-3"><a href="" class="  text-decoration-none news-link soon"  id="1"><i class="fas fa-bullhorn mr-2"></i>Announcements </a><span class="pop-up-hidden pop-up ml-2"><small class="text-muted"> -- feature coming soon</small></span>
+            
+            <li class="list-group-item bg-light p-3"><a href="" class=" text-decoration-none news-link soon"  id="2"><i class="fas fa-clipboard mr-2"></i>Blog Updates </a><span class="pop-up-hidden pop-up ml-2"><small class="text-muted"> -- feature coming soon</small></span>
+            
+            <li class="list-group-item bg-light p-3"><a href="" class=" text-decoration-none news-link soon" id="3"><i class="fas fa-comments mr-2"></i>Feedback </a><span class="pop-up-hidden pop-up ml-2"><small class="text-muted"> -- feature coming soon</small></span>
+            
+            <li class="list-group-item bg-light p-3"><a href="" class=" text-decoration-none news-link soon" id="4"><i class="fas fa-bug mr-2"></i>Report Bugs </a><span class="pop-up-hidden pop-up ml-2"><small class="text-muted"> -- feature coming soon</small></span>
+            
+            <li class="list-group-item bg-light p-3"><a href="https://github.com/KRNK97" class=" text-decoration-none news-link soon" id="4"><i class="fas fa-bug mr-2"></i>Github Repository </a><span class="pop-up-hidden pop-up ml-2"><small class="text-muted"> -- blog's github page</small></span>
+
+        </ul>
+</div>
+
+</div>
+
+{% endblock %}
+
+

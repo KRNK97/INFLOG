@@ -1,0 +1,52 @@
+{% extends 'blog_app/base.html' %}
+
+{% block content %}
+
+
+
+<h1 class="h6 mt-4 text-muted text-center">Viewing <span class="green">{{ post.author}}</span>'s post</h1>
+
+
+
+<div class="mt-2 mb-4 border border-light"></div>
+
+<div class="post-container rounded border shadow m-2 p-4 bg-light">
+    <div class="top-section">
+        <div class="mr-2  shadow-sm rounded-circle p-1 border border-success">
+            <img class="rounded-circle dp-big" src="{{ post.author.profile.image.url }}" alt="">
+        </div>
+
+        <h2 class="d-inline m-0 p-0 big-title text-success">{{ post.title|upper }}</h2>
+
+    </div>
+
+    <div class="mt-2 mb-2 border border-light"></div>
+    
+    <h3 class="h5 text-muted">
+        By <a href="{% url 'posts_by_user' post.author.id %}" class="text-reset text-decoration-none"><span class="text-success">{{ post.author }}</span></a> 
+        
+        on 
+        <span class="text-muted ">{{ post.date | date:"j F, Y" }}</span>
+    </h3>
+
+    
+    <div class="mt-2 mb-2 border border-muted"></div>
+
+    <p class="mt-2 longer">{{ post.content }}</p>
+
+    {% if post.author.username == user.username %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <a href="/delete/{{ post.id }}" class="btn btn-outline-danger">
+                <i class="fas fa-trash trash-alt mr-1"></i>Delete
+            </a>
+            
+            <a href="/update/{{ post.id }}" class="btn btn-outline-success">
+                <i class="fas fa-pen mr-1"></i>Edit
+            </a>
+        </form>
+    {% endif %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'blog_app/base.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="register-icon mt-4 text-secondary text-center"><i class="fas fa-user-edit"></i> MY ACCOUNT</div>
+
+<!-- <h1 class="h6 mt-4 text-muted text-center">User Account</h1> -->
+
+<div class="mt-2 mb-4 border border-light"></div>
+
+{% if user.is_authenticated %}
+
+<div class="post-container2 rounded border border-success shadow-sm my-2 p-4 ">
+    <div class="d-flex align-items-center justify-content-center p-2 border border-secondary rounded-circle  mb-2 ">
+        <img class="rounded-circle dp-big shadow-sm" src="{{ user.profile.image.url }}" alt="">
+    </div>
+    <div class="info">
+        <span class="text-success h3 username">{{ user.username}}</span>
+
+        <span class="text-dark h5 email">
+            {% if user.email %}
+                {{ user.email}}
+            {% else %}
+                No Email
+            {% endif %}
+        </span>
+        <span>
+            <a href="{% url 'password_reset' %}" class="text-decoration-none reset-pass">Reset Password</a>
+        </span>
+    </div>
+    
+</div>
+
+
+<div class="form-container bg-light shadow-sm rounded mb-4 border border-success">
+<form action="" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    
+    <div class="form-group">
+        {{ u_form | crispy}}
+        
+        {{ p_form | crispy }}
+        
+    </div>
+    
+
+    <button type="submit" class="btn btn-outline-success">Update</button>
+</form>
+
+</div>
+
+{% endif %}
+
+
+
+{% endblock %}

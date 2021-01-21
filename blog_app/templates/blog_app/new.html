@@ -1,0 +1,25 @@
+{% extends 'blog_app/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="register-icon mt-4 text-secondary text-center"><i class="fas fa-pen"></i> CREATE A POST</div>
+
+<div class="mt-2 mb-4 border border-light"></div>
+
+<div class="form-container bg-light rouned shadow-sm">
+<form action="" method="POST">
+
+    {% csrf_token %}
+    
+    <div class="form-group">
+        {{ form| crispy }}
+    </div>
+
+    <button type="submit" class="btn btn-outline-success btn-block">Post</button>
+    
+    <button onClick="window.history.back();return false;" class="btn btn-block btn-outline-secondary ">Cancel</button>
+
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'blog_app/main.css' %}">
+</head>
+<body>
+    <div class="navbar bg-dark navbar-body p-3">
+        <div class="links">
+            <p class="text-decoration-none text-success bold-h">THE INFLOG</p>
+            <a href="{% url 'home' %}" class="text-decoration-none "><i class="fas fa-home"></i> Home</a>
+            <a href="{% url 'about' %}" class="text-decoration-none "><i class="fas fa-info-circle"></i> About</a>
+        </div>
+        <div class="links">
+            {% if user.is_authenticated %}
+                <a href="{% url 'new' %}" class="text-decoration-none "><i class="fas fa-plus-square"></i> Post</a>
+                <a href="{% url 'account' %}" class="text-decoration-none "><i class="fas fa-user-edit"></i> Account</a>
+                <a href="{% url 'logout' %}" class="text-decoration-none "><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <div class="image-top rounded-circle shadow mx-2 border border-success">
+                    <a href="{% url 'account' %}" class="dp-link rounded-circle shadow-sm">
+                        <img class="rounded-circle dp" src="{{ user.profile.image.url }}" alt="">
+                    </a>
+                </div>
+            {% else %}
+                <a href="{% url 'register' %}" class="text-decoration-none "><i class="fas fa-user-plus"></i> Register</a>
+                <a href="{% url 'login' %}" class="text-decoration-none "><i class="far fa-user"></i> Login</a>
+            {% endif %}
+            
+            
+        </div>
+    </div>
+    <div class="container mb-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} mt-2">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+       
+        {% block content %}
+        {% endblock %}
+           
+
+    <div class="bottom-space">
+    </div>
+    
+
+    <footer class="">
+        <div class="links-footer">
+            <a href="https://www.linkedin.com/in/krnk97/" class='text-decoration-none  ' target="_blank" ><i class="fab fa-linkedin-in rounded-circle bg-light shadow-sm"></i></a>
+        
+            <a href="https://github.com/KRNK97" class='text-decoration-none' target="_blank" ><i class="fab fa-github rounded-circle bg-light  shadow-sm"></i></a>
+        
+            <a href="https://www.instagram.com/_krnk97/" class='text-decoration-none ' target="_blank" ><i class="fab fa-instagram rounded-circle bg-light shadow-sm"></i></a>
+        </div>
+    </footer>
+
+
+    <script src="{% static 'blog_app/main.js' %}"></script>
+    <script src="https://kit.fontawesome.com/11b91cfe01.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</body>
+</html>
