@@ -1,4 +1,5 @@
-# Inflog (Django based blog)
+# Inflog (Django based blog) [NOT WORKING ON IT]
+# There is a better version of the blog which has been deployed, you can see it [HERE](https://github.com/KRNK97/theExchange)
 
 This is a blogging site developed with Django. The blog features-
  - User Authentication ( Login, Logout, Registeration )
